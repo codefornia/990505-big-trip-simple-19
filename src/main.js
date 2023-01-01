@@ -10,7 +10,7 @@ const sitePageMainElement = document.querySelector('.page-main');
 const sitePageContainerElement = sitePageMainElement.querySelector('.page-body__container');
 const boardPresenter = new BoardPresenter({boardContainer: sitePageContainerElement});
 
-render (new NewEventButtonView(), siteMainElement)
-render (new EventsFiltersView(), siteControlsFiltersElement)
+render (new NewEventButtonView(), siteMainElement);
+render (new EventsFiltersView(), siteControlsFiltersElement);
 
 boardPresenter.init();

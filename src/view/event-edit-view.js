@@ -1,4 +1,4 @@
-import {createElement} from '../render.js'
+import {createElement} from '../render.js';
 
 function createEditEventTemplate() {
   return '<li class="trip-events__item">\n' +
@@ -162,17 +162,17 @@ function createEditEventTemplate() {
     '                  </section>\n' +
     '                </section>\n' +
     '              </form>\n' +
-    '            </li>'
+    '            </li>';
 }
 
 export default class EventEditView {
   getTemplate() {
-    return createEditEventTemplate()
+    return createEditEventTemplate();
   }
 
   getElement() {
     if(!this.element) {
-      this.element = createElement(this.getTemplate())
+      this.element = createElement(this.getTemplate());
     }
     return this.element;
   }

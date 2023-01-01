@@ -1,4 +1,4 @@
-import {createElement} from '../render.js'
+import {createElement} from '../render.js';
 
 function createTripFiltersTemplate() {
   return '<form class="trip-filters" action="#" method="get">\n' +
@@ -13,17 +13,17 @@ function createTripFiltersTemplate() {
     '                </div>\n' +
     '\n' +
     '                <button class="visually-hidden" type="submit">Accept filter</button>\n' +
-    '              </form>'
+    '              </form>';
 }
 
 export default class EventsFiltersView {
   getTemplate() {
-    return createTripFiltersTemplate()
+    return createTripFiltersTemplate();
   }
 
   getElement() {
     if(!this.element) {
-      this.element = createElement(this.getTemplate())
+      this.element = createElement(this.getTemplate());
     }
     return this.element;
   }

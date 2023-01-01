@@ -1,4 +1,4 @@
-import {createElement} from '../render.js'
+import {createElement} from '../render.js';
 
 function createEventsSortTemplate() {
   return '<form class="trip-events__trip-sort  trip-sort" action="#" method="get">\n' +
@@ -26,17 +26,17 @@ function createEventsSortTemplate() {
     '              <input id="sort-offer" class="trip-sort__input  visually-hidden" type="radio" name="trip-sort" value="sort-offer" disabled>\n' +
     '              <label class="trip-sort__btn" for="sort-offer">Offers</label>\n' +
     '            </div>\n' +
-    '          </form>'
+    '          </form>';
 }
 
 export default class EventsSortView {
   getTemplate() {
-    return createEventsSortTemplate()
+    return createEventsSortTemplate();
   }
 
   getElement() {
     if(!this.element) {
-      this.element = createElement(this.getTemplate())
+      this.element = createElement(this.getTemplate());
     }
     return this.element;
   }

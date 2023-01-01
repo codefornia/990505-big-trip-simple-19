@@ -1,4 +1,4 @@
-import {createElement} from '../render.js'
+import {createElement} from '../render.js';
 
 function createAddEventTemplate() {
   return ' <li class="trip-events__item">\n' +
@@ -30,17 +30,17 @@ function createAddEventTemplate() {
     '                  <span class="visually-hidden">Open event</span>\n' +
     '                </button>\n' +
     '              </div>\n' +
-    '            </li>'
+    '            </li>';
 }
 
 export default class EventEditView {
   getTemplate() {
-    return createAddEventTemplate()
+    return createAddEventTemplate();
   }
 
   getElement() {
     if(!this.element) {
-      this.element = createElement(this.getTemplate())
+      this.element = createElement(this.getTemplate());
     }
     return this.element;
   }
