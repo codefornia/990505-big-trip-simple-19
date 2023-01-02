@@ -1,8 +1,8 @@
 import BoardView from '../view/board-view.js';
 import EventsSortView from '../view/events-sort-view.js';
 import EventsListView from '../view/events-list-view.js';
-import EventView from '../view/event-view.js';
 import EventEditView from '../view/event-edit-view.js';
+import EventView from '../view/event-view.js';
 import {render} from '../render.js';
 
 export default class BoardPresenter {
@@ -20,7 +20,7 @@ export default class BoardPresenter {
 
     render(new EventEditView(), this.eventListComponent.getElement());
 
-    for (let i = 0; i < 3; i++) {
+    for (let eventPoint = 0; eventPoint < 3; eventPoint++) {
       render(new EventView(), this.eventListComponent.getElement());
     }
 
