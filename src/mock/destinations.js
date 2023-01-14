@@ -7,6 +7,14 @@ const MOCK_DESTINATIONS = [
       {
         'src': 'https://loremflickr.com/248/152?random=1',
         'description': 'View of Porto Alegre bay at sunset.'
+      },
+      {
+        'src': 'https://loremflickr.com/248/152?random=11',
+        'description': 'View of Porto Alegre bay at sunset.'
+      },
+      {
+        'src': 'https://loremflickr.com/248/152?random=111',
+        'description': 'View of Porto Alegre bay at sunset.'
       }
     ]
   },
@@ -17,6 +25,14 @@ const MOCK_DESTINATIONS = [
     'pictures': [
       {
         'src': 'https://loremflickr.com/248/152?random=2',
+        'description': 'Altino Arantes Building at Downtown.'
+      },
+      {
+        'src': 'https://loremflickr.com/248/152?random=22',
+        'description': 'Altino Arantes Building at Downtown.'
+      },
+      {
+        'src': 'https://loremflickr.com/248/152?random=222',
         'description': 'Altino Arantes Building at Downtown.'
       }
     ]
