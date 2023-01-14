@@ -1,22 +1,25 @@
 import {createElement} from '../render.js';
 import {humanizDatePoint, humanizTimePoint} from '../utils.js';
+import {MOCK_OFFERS} from '../mock/offers';
 
-
-function createOffersTemplate(offers) {
+function createOffersTemplate(offers, allOffers) {
+  const offersSelected = allOffers.filter((offer) => offers.includes(offer.id));
   return (
     `<ul class="event__selected-offers">
-  ${offers.map((offer) =>
+      ${offersSelected.map((offer) =>
       `<li class="event__offer">
-      <span class="event__offer-title">${offer.title}</span>
-      &plus;&euro;&nbsp;
-      <span class="event__offer-price">${offer.price}</span>
-  </li>`).join('')}`
+            <span class="event__offer-title">${offer.title}</span>
+            &plus;&euro;&nbsp;
+            <span class="event__offer-price">${offer.price}</span>
+      </li>`).join('')}
+    </ul>`
   );
 }
 
 function createEventTemplate(point) {
   const {basePrice, dateFrom, dateTo, destination, offers, type} = point;
-  const offersTemplate = createOffersTemplate(offers);
+  const offersTemplate = createOffersTemplate(offers, MOCK_OFFERS);
+
   const dateFromFormat = humanizDatePoint(dateFrom);
   const timeFromFormat = humanizTimePoint(dateFrom);
   const timeToFormat = humanizTimePoint(dateTo);
@@ -40,11 +43,10 @@ function createEventTemplate(point) {
                 &euro;&nbsp;<span class="event__price-value">${basePrice}</span>
               </p>
               <h4 class="visually-hidden">Offers:</h4>
-
               ${offersTemplate}
-
               <button class="event__rollup-btn" type="button">
                 <span class="visually-hidden">Open event</span>
+                </button>
               </button>
             </div>
           </li>`
