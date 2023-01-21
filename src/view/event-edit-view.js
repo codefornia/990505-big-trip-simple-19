@@ -1,9 +1,6 @@
 import {createElement} from '../render.js';
 import {humanizDateForm} from '../utils';
 import {MOCK_OFFERS} from '../mock/offers';
-import {getRandomPoint} from '../mock/point';
-
-const BLANK_POINT = getRandomPoint();
 
 function createEventListTemplate(type, allTypes) {
   return (
@@ -73,7 +70,7 @@ function createDestinationPhotoTemplate(photos){
 }
 
 
-function createEditEventTemplate(point = BLANK_POINT) {
+function createEditEventTemplate(point) {
   const {basePrice, dateFrom, dateTo, destination, offers, type} = point;
   const eventListTemplate = createEventListTemplate(type, MOCK_OFFERS);
   const offersTemplate = createOffersTemplate(offers, MOCK_OFFERS);
@@ -143,12 +140,12 @@ export default class EventEditView {
   #element = null;
   #point = null;
 
-  constructor(point) {
+  constructor({point}) {
     this.#point = point;
   }
 
   get template() {
-    return createEditEventTemplate();
+    return createEditEventTemplate(this.#point);
   }
 
   get element() {

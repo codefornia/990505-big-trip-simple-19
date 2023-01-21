@@ -4,6 +4,7 @@ import EventsListView from '../view/events-list-view.js';
 import EventView from '../view/event-view.js';
 import {render} from '../render.js';
 import EventEditView from '../view/event-edit-view';
+import NoEventsView from '../view/no-events-view';
 
 export default class BoardPresenter {
   #boardContainer = null;
@@ -22,11 +23,14 @@ export default class BoardPresenter {
   init() {
     this.#boardPoints = [...this.#pointsModel.points];
     render(this.#boardComponent, this.#boardContainer);
-    render(new EventsSortView(), this.#boardComponent.element);
-    render(this.#eventListComponent, this.#boardComponent.element);
-
-    for (let eventPoint = 0; eventPoint < this.#boardPoints.length; eventPoint++) {
-      this.#renderPoint(this.#boardPoints[eventPoint]);
+    if (!this.#boardPoints.length) {
+      render(new NoEventsView(), this.#boardComponent.element);
+    } else {
+      render(new EventsSortView(), this.#boardComponent.element);
+      render(this.#eventListComponent, this.#boardComponent.element);
+      for (let eventPoint = 0; eventPoint < this.#boardPoints.length; eventPoint++) {
+        this.#renderPoint(this.#boardPoints[eventPoint]);
+      }
     }
   }
 

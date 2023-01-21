@@ -1,14 +1,14 @@
 import {createElement} from '../render.js';
 
-function createTripEventsMsgTemplate() {
-  return '<p class="trip-events__msg">Loading...</p>';
+function createNoEventsTemplate() {
+  return '<p class="trip-events__msg">Click New Event to create your first point</p>';
 }
 
-export default class TripEventsMsgView {
+export default class NoEventsView {
   #element = null;
 
   get template() {
-    return createTripEventsMsgTemplate();
+    return createNoEventsTemplate();
   }
 
   get element() {
