@@ -3,6 +3,7 @@ import EventsSortView from '../view/events-sort-view.js';
 import EventsListView from '../view/events-list-view.js';
 import EventView from '../view/event-view.js';
 import {render} from '../render.js';
+import EventEditView from '../view/event-edit-view';
 
 export default class BoardPresenter {
   #boardContainer = null;
@@ -31,6 +32,26 @@ export default class BoardPresenter {
 
   #renderPoint(point) {
     const eventComponent = new EventView({point});
+
+    const eventEditComponent = new EventEditView({point});
+
+    const replaceEventToForm = () => {
+      this.#eventListComponent.element.replaceChild(eventEditComponent.element, eventComponent.element);
+    };
+
+    const replaceFormToEvent = () => {
+      this.#eventListComponent.element.replaceChild(eventComponent.element, eventEditComponent.element);
+    };
+
+    eventComponent.element.querySelector('.event__rollup-btn').addEventListener('click', () => {
+      replaceEventToForm();
+    });
+
+    eventEditComponent.element.querySelector('form').addEventListener('submit', (evt) => {
+      evt.preventDefault();
+      replaceFormToEvent();
+    });
+
     render(eventComponent, this.#eventListComponent.element);
   }
 }
