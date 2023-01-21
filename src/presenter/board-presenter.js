@@ -43,13 +43,23 @@ export default class BoardPresenter {
       this.#eventListComponent.element.replaceChild(eventComponent.element, eventEditComponent.element);
     };
 
+    const escKeyDownHandler = (evt) => {
+      if (evt.key === 'Escape' || evt.key === 'Esc') {
+        evt.preventDefault();
+        replaceFormToEvent();
+        document.removeEventListener('keydown', escKeyDownHandler);
+      }
+    };
+
     eventComponent.element.querySelector('.event__rollup-btn').addEventListener('click', () => {
       replaceEventToForm();
+      document.addEventListener('keydown', escKeyDownHandler);
     });
 
     eventEditComponent.element.querySelector('form').addEventListener('submit', (evt) => {
       evt.preventDefault();
       replaceFormToEvent();
+      document.removeEventListener('keydown', escKeyDownHandler);
     });
 
     render(eventComponent, this.#eventListComponent.element);
