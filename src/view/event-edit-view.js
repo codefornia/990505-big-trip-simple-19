@@ -1,9 +1,6 @@
 import {createElement} from '../render.js';
 import {humanizDateForm} from '../utils';
 import {MOCK_OFFERS} from '../mock/offers';
-import {getRandomPoint} from '../mock/point';
-
-const BLANK_POINT = getRandomPoint();
 
 function createEventListTemplate(type, allTypes) {
   return (
@@ -22,6 +19,9 @@ function createEventListTemplate(type, allTypes) {
 }
 
 function createOffersTemplate(offers, allOffers) {
+  if (!offers) {
+    return '';
+  }
   return (
     `<section class="event__section  event__section--offers">
       <h3 class="event__section-title  event__section-title--offers">Offers</h3>
@@ -40,6 +40,23 @@ function createOffersTemplate(offers, allOffers) {
   );
 }
 
+function createDestinationTemplate(destination) {
+  if (!destination) {
+    return '';
+  }
+  const destinationPhotoTemplate = destination?.pictures ? createDestinationPhotoTemplate(destination.pictures) : '';
+  return (
+    `<section class="event__section  event__section--destination">
+      <h3 class="event__section-title  event__section-title--destination">Destination</h3>
+      <p class="event__destination-description">${destination.description}</p>
+
+      ${destinationPhotoTemplate}
+
+    </section>`
+  );
+}
+
+
 function createDestinationPhotoTemplate(photos){
   return (
     `<div class="event__photos-container">
@@ -53,11 +70,12 @@ function createDestinationPhotoTemplate(photos){
 }
 
 
-function createEditEventTemplate(point = BLANK_POINT) {
+function createEditEventTemplate(point) {
   const {basePrice, dateFrom, dateTo, destination, offers, type} = point;
   const eventListTemplate = createEventListTemplate(type, MOCK_OFFERS);
   const offersTemplate = createOffersTemplate(offers, MOCK_OFFERS);
-  const destinationPhotoTemplate = createDestinationPhotoTemplate(destination.pictures);
+  const destinationTemplate = createDestinationTemplate(destination);
+
   const dateFromFormat = humanizDateForm(dateFrom);
   const dateToFormat = humanizDateForm(dateTo);
 
@@ -78,7 +96,7 @@ function createEditEventTemplate(point = BLANK_POINT) {
                     <label class="event__label  event__type-output" for="event-destination-1">
                       ${type}
                     </label>
-                    <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="${destination.name}" list="destination-list-1">
+                    <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="${destination?.name ? destination.name : ''}" list="destination-list-1">
                     <datalist id="destination-list-1">
                       <option value="Amsterdam"></option>
                       <option value="Geneva"></option>
@@ -108,13 +126,9 @@ function createEditEventTemplate(point = BLANK_POINT) {
 
                   ${offersTemplate}
 
-                  <section class="event__section  event__section--destination">
-                    <h3 class="event__section-title  event__section-title--destination">Destination</h3>
-                    <p class="event__destination-description">${destination.destination}</p>
+                  ${destinationTemplate}
 
-                    ${destinationPhotoTemplate}
 
-                  </section>
                 </section>
               </form>
             </li>`
@@ -123,18 +137,25 @@ function createEditEventTemplate(point = BLANK_POINT) {
 
 
 export default class EventEditView {
-  getTemplate() {
-    return createEditEventTemplate();
+  #element = null;
+  #point = null;
+
+  constructor({point}) {
+    this.#point = point;
   }
 
-  getElement() {
-    if(!this.element) {
-      this.element = createElement(this.getTemplate());
+  get template() {
+    return createEditEventTemplate(this.#point);
+  }
+
+  get element() {
+    if(!this.#element) {
+      this.#element = createElement(this.template);
     }
-    return this.element;
+    return this.#element;
   }
 
   removeElement() {
-    this.Element = null;
+    this.#element = null;
   }
 }

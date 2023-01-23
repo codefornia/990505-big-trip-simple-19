@@ -75,6 +75,10 @@ const MOCK_DESTINATIONS = [
       {
         'src': 'https://loremflickr.com/248/152?random=55',
         'description': 'Christ the Redeemer on Corcovado and Sugarloaf Mountain and Botafogo Bay.'
+      },
+      {
+        'src': 'https://loremflickr.com/248/152?random=555',
+        'description': 'Christ the Redeemer on Corcovado and Sugarloaf Mountain and Botafogo Bay.'
       }
     ]
   },

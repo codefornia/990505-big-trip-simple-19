@@ -10,16 +10,12 @@ const MOCK_POINTS = [
     'dateTo': new Date(2023, 2, 11, 7, 30),
     'destination': getRandomArrayElement(MOCK_DESTINATIONS),
     'id': '0',
-    'offers': [
-      getRandomArrayElement(MOCK_OFFERS).id,
-    ],
     'type': POINT_TYPES[1],
   },
   {
     'basePrice': 2000,
     'dateFrom': new Date(2023, 2, 11, 10, 50),
     'dateTo': new Date(2023, 2, 12, 6, 30),
-    'destination': getRandomArrayElement(MOCK_DESTINATIONS),
     'id': '1',
     'offers': [
       getRandomArrayElement(MOCK_OFFERS).id,
