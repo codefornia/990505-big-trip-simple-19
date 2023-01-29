@@ -1,8 +1,8 @@
+import {render} from './framework/render.js';
 import BoardView from '../view/board-view.js';
 import EventsSortView from '../view/events-sort-view.js';
 import EventsListView from '../view/events-list-view.js';
 import EventView from '../view/event-view.js';
-import {render} from '../render.js';
 import EventEditView from '../view/event-edit-view';
 import NoEventsView from '../view/no-events-view';
 

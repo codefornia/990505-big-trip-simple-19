@@ -1,4 +1,4 @@
-import {createElement} from '../render.js';
+import AbstractView from '../framework/view/abstract-view';
 import {humanizDatePoint, humanizTimePoint} from '../utils.js';
 import {MOCK_OFFERS} from '../mock/offers';
 
@@ -57,26 +57,15 @@ function createEventTemplate({point}) {
   );
 }
 
-export default class EventView {
-  #element = null;
+export default class EventView extends AbstractView {
   #point = null;
 
   constructor(point) {
+    super();
     this.#point = point;
   }
 
   get template() {
     return createEventTemplate(this.#point);
-  }
-
-  get element() {
-    if (!this.#element) {
-      this.#element = createElement(this.template);
-    }
-    return this.#element;
-  }
-
-  removeElement() {
-    this.#element = null;
   }
 }
