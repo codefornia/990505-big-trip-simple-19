@@ -17,7 +17,7 @@ function createOffersTemplate(offers, allOffers) {
   );
 }
 
-function createEventTemplate({point}) {
+function createEventTemplate(point) {
   const {basePrice, dateFrom, dateTo, destination, offers, type} = point;
   const offersTemplate = createOffersTemplate(offers, MOCK_OFFERS);
 
@@ -59,13 +59,23 @@ function createEventTemplate({point}) {
 
 export default class EventView extends AbstractView {
   #point = null;
+  #handleEditClick = null;
 
-  constructor(point) {
+  constructor({point, onEditClick}) {
     super();
     this.#point = point;
+    this.#handleEditClick = onEditClick;
+
+    this.element.querySelector('.event__rollup-btn')
+      .addEventListener('click', this.#editClickHandler);
   }
 
   get template() {
     return createEventTemplate(this.#point);
   }
+
+  #editClickHandler = (evt) => {
+    evt.preventDefault();
+    this.#handleEditClick();
+  };
 }

@@ -19,9 +19,24 @@ export default class BoardPresenter {
     this.#boardContainer = boardContainer;
     this.#pointsModel = pointsModel;
   }
+  /*
+    init() {
+    this.#boardPoints = [...this.#pointsModel.points];
+    render(this.#boardComponent, this.#boardContainer);
+    if (!this.#boardPoints.length) {
+      render(new NoEventsView(), this.#boardComponent.element);
+    } else {
+      render(new EventsSortView(), this.#boardComponent.element);
+      render(this.#eventListComponent, this.#boardComponent.element);
+      for (let eventPoint = 0; eventPoint < this.#boardPoints.length; eventPoint++) {
+        this.#renderPoint(this.#boardPoints[eventPoint]);
+      }
+    }
+    */
 
   init() {
     this.#boardPoints = [...this.#pointsModel.points];
+
     render(this.#boardComponent, this.#boardContainer);
     if (!this.#boardPoints.length) {
       render(new NoEventsView(), this.#boardComponent.element);
@@ -35,36 +50,37 @@ export default class BoardPresenter {
   }
 
   #renderPoint(point) {
-    const eventComponent = new EventView({point});
-
-    const eventEditComponent = new EventEditView({point});
-
-    const replaceEventToForm = () => {
-      this.#eventListComponent.element.replaceChild(eventEditComponent.element, eventComponent.element);
-    };
-
-    const replaceFormToEvent = () => {
-      this.#eventListComponent.element.replaceChild(eventComponent.element, eventEditComponent.element);
-    };
-
     const escKeyDownHandler = (evt) => {
       if (evt.key === 'Escape' || evt.key === 'Esc') {
         evt.preventDefault();
-        replaceFormToEvent();
+        replaceFormToEvent.call(this);
         document.removeEventListener('keydown', escKeyDownHandler);
       }
     };
 
-    eventComponent.element.querySelector('.event__rollup-btn').addEventListener('click', () => {
-      replaceEventToForm();
-      document.addEventListener('keydown', escKeyDownHandler);
+    const eventComponent = new EventView({
+      point,
+      onEditClick: () => {
+        replaceEventToForm.call(this);
+        document.addEventListener('keydown', escKeyDownHandler);
+      }
     });
 
-    eventEditComponent.element.querySelector('form').addEventListener('submit', (evt) => {
-      evt.preventDefault();
-      replaceFormToEvent();
-      document.removeEventListener('keydown', escKeyDownHandler);
+    const eventEditComponent = new EventEditView({
+      point,
+      onFormSubmit: () => {
+        replaceFormToEvent.call(this);
+        document.removeEventListener('keydown', escKeyDownHandler);
+      }
     });
+
+    function replaceEventToForm() {
+      this.#eventListComponent.element.replaceChild(eventEditComponent.element, eventComponent.element);
+    }
+
+    function replaceFormToEvent() {
+      this.#eventListComponent.element.replaceChild(eventComponent.element, eventEditComponent.element);
+    }
 
     render(eventComponent, this.#eventListComponent.element);
   }
