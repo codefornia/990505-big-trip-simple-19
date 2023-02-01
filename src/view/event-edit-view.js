@@ -1,4 +1,4 @@
-import {createElement} from '../render.js';
+import AbstractView from '../framework/view/abstract-view';
 import {humanizDateForm} from '../utils';
 import {MOCK_OFFERS} from '../mock/offers';
 
@@ -69,7 +69,6 @@ function createDestinationPhotoTemplate(photos){
   );
 }
 
-
 function createEditEventTemplate(point) {
   const {basePrice, dateFrom, dateTo, destination, offers, type} = point;
   const eventListTemplate = createEventListTemplate(type, MOCK_OFFERS);
@@ -135,27 +134,24 @@ function createEditEventTemplate(point) {
   );
 }
 
-
-export default class EventEditView {
-  #element = null;
+export default class EventEditView extends AbstractView{
   #point = null;
+  #handleFormSubmit = null;
 
-  constructor({point}) {
+  constructor({point, onFormSubmit}) {
+    super();
     this.#point = point;
+    this.#handleFormSubmit = onFormSubmit;
+
+    this.element.querySelector('form').addEventListener('submit', this.#formSubmitHandler);
   }
 
   get template() {
     return createEditEventTemplate(this.#point);
   }
 
-  get element() {
-    if(!this.#element) {
-      this.#element = createElement(this.template);
-    }
-    return this.#element;
-  }
-
-  removeElement() {
-    this.#element = null;
-  }
+  #formSubmitHandler = (evt) => {
+    evt.preventDefault();
+    this.#handleFormSubmit();
+  };
 }
